@@ -1,0 +1,123 @@
+% --- CANDU cluster ------------------------------------------
+
+set title "CANDU"
+
+% --- Fuel pin:
+
+pin 1
+fuel  0.6122
+clad  0.6540
+cool
+
+% --- Lattice (type = 4, 4 rings, 3rd ring rotated 15 deg.):
+
+lat 10  4  0.0 0.0  4
+ 1  0.0000   0.0  1
+ 6  1.4885   0.0  1 1 1 1 1 1
+12  2.8755  15.0  1 1 1 1 1 1 1 1 1 1 1 1
+18  4.3305   0.0  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+% --- Surfaces (core pitch = 18.191 cm):
+
+surf 1  cyl 0.0 0.0 5.16890  % Pressure tube inner wall
+surf 2  cyl 0.0 0.0 5.60320  % Pressure tube outer wall
+surf 3  cyl 0.0 0.0 6.44780  % Calandria tube inner wall
+surf 4  cyl 0.0 0.0 6.58750  % Calandria tube outer wall
+surf 5  sqc 0.0 0.0 9.09570  % Outer boundary
+
+% --- Cells:
+
+cell 1  0  fill 10  -1      % Pin lattice
+cell 2  0  tube      1  -2  % Pressure tube
+cell 3  0  void      2  -3  % Void between tubes
+cell 4  0  caltube   3  -4  % Calandria tube
+cell 5  0  moder     4  -5  % Moderator channel
+cell 6  0  outside   5      % Outside world
+
+% --- Fuel (UO2, natural uranium, 0.7% U-235):
+
+% mat fuel    -10.4375010
+%  8016.09c    -1.18473E+1
+% 92235.09c    -6.27118E-1
+% 92238.09c    -8.75256E+1
+mat fuel    -2.14648 % g/cm3
+ 3007.06c   -10.90
+ 9019.06c   -66.80
+ 4009.06c   -6.27
+40000.06c   -10.92
+92235.06c   -1.77
+92238.06c   -3.33
+
+% --- Cladding:
+
+mat clad     -6.44
+25055.06c    -1.60000E-1
+28000.06c    -6.00000E-2
+24000.06c    -1.10000E-1
+40000.06c    -9.97100E+1
+ 5010.06c    -5.7409e-05
+ 5011.06c    -2.5259E-04
+
+% --- Pressure tube:
+
+mat tube     -6.57
+40000.06c    -9.75000E+1
+ 5010.06c    -3.8889E-05
+ 5011.06c    -1.7111E-04
+
+% --- Calandria tube:
+
+mat caltube  -6.44
+25055.06c    -1.60000E-1
+28000.06c    -6.00000E-2
+24000.06c    -1.10000E-1
+40000.06c    -9.97100E+1
+ 5010.06c    -5.7409e-05
+ 5011.06c    -2.5259E-04
+
+% --- Coolant water:
+
+mat cool     -0.812120    moder lwtr 1001 moder hwtr 1002
+ 8016.06c    -7.99449E-1
+ 1002.06c    -1.99768E-1
+ 1001.06c    -7.83774E-4
+
+% --- Moderator water:
+
+mat moder    -1.843    moder gr 6012
+ 6012.06c    -1.0
+
+% --- Thermal scattering data for light and heavy water:
+
+therm lwtr lwj3.11t
+therm hwtr hwj3.11t
+therm gr grj3.12t
+
+% --- Cross section data library file path:
+
+set acelib "/home/lindsayad/serpent/core/xsdata/xsdir_serpent"
+
+% --- Periodic boundary condition:
+
+set bc 2
+
+% --- group constant generation:
+
+% universe = 0 (homogenization over all space)
+% symmetry = 2
+% 4-group structure (3 group boundaries)
+
+set gcu  0
+set sym  0
+set nfg  4  0.625E-6  5.5E-3  0.821
+
+% --- Neutron population and criticality cycles:
+
+set pop 2000 500 20
+
+% --- Geometry and mesh plots:
+
+plot 3 500 500
+mesh 3 500 500
+
+% ------------------------------------------------------------
