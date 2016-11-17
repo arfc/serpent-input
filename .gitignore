@@ -5,3 +5,7 @@
 *.seed
 **/octave-workspace
 *.ods
+*.png
+*.txt*
+*.m
+*~*
