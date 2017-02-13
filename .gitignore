@@ -10,3 +10,4 @@
 *.m
 *~*
 *.out
+.ipynb_checkpoints/
