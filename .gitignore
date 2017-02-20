@@ -6,7 +6,7 @@
 **/octave-workspace
 *.ods
 *geom1.png
-*.txt*
+# *.txt*
 *.m
 *~*
 *.out
