@@ -5,7 +5,7 @@
 *.seed
 **/octave-workspace
 *.ods
-*geom1.png
+*.png
 # *.txt*
 *.m
 *~*
