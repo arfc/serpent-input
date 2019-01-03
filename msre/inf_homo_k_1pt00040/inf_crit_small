@@ -4,7 +4,7 @@
 set title "MSRE-Homo"
 
 % --- Dummy structures
-surf 1 cyl 0 0 74.93 0 198.12
+surf 1 sqc 0 0 40
 
 cell 1 0 fuel -1
 cell 2 0 outside 1
@@ -17,30 +17,31 @@ mat fuel    -1.91 tmp 922 % 1200 F, pg. 17 MSRE Design and Operations, part iii,
  9019.09c   -16.76
  4009.09c   -1.57
 40000.09c   -2.74
-92235.09c   -0.418
-92238.09c   -0.8625
+92235.09c   -0.048
+92238.09c   -1.2325
  6012.09c   -74.90
 
 % --- Cross section data library file path:
 
-set acelib "/projects/arfc/serpent/core/xsdata/xsdir_serpent"
+set acelib "/home/lindsayad/serpent/core/xsdata/xsdir_serpent"
 
 % --- boundary condition (1 for vacuum, 2 for reflective):
 
-set bc 1
+set bc 2
 
-% --- group constant generation:
+% % --- group constant generation:
 
-set gcu  0
-set nfg  2 0.625e-6
+% set gcu  0
+% set nfg  1
 
 % --- Neutron population and criticality cycles:
 
-set pop 50000 500 50
+set pop 5000 500 10
 
 % --- Geometry and mesh plots:
 
-plot 3 500 500 99.06
+plot 3 500 500 5
 mesh 3 500 500
+mesh 1 500 500
 
 % ------------------------------------------------------------
